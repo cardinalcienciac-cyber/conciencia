@@ -47,10 +47,12 @@
   const fino = matchMedia("(hover: hover) and (min-width: 901px)");
   document.querySelectorAll(".dd").forEach(dd => {
     const btn = dd.querySelector(".caret"), sub = dd.querySelector(".sub");
-    const set = o => { sub.classList.toggle("open", o); btn.setAttribute("aria-expanded", String(o)); };
+    let cierre = null;
+    const set = o => { clearTimeout(cierre); sub.classList.toggle("open", o); btn.setAttribute("aria-expanded", String(o)); };
     btn.addEventListener("click", () => set(!sub.classList.contains("open")));
+    // Se abre al pasar el ratón y se cierra con un pequeño retraso, para poder llegar a las opciones
     dd.addEventListener("mouseenter", () => { if (fino.matches) set(true); });
-    dd.addEventListener("mouseleave", () => { if (fino.matches) set(false); });
+    dd.addEventListener("mouseleave", () => { if (fino.matches) { clearTimeout(cierre); cierre = setTimeout(() => set(false), 400); } });
     dd.addEventListener("keydown", e => { if (e.key === "Escape") { set(false); btn.focus(); } });
     document.addEventListener("click", e => { if (!dd.contains(e.target)) set(false); });
   });
