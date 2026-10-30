@@ -1,320 +1,37 @@
 <!DOCTYPE html>
-<html lang="es" data-lang="es">
+<html lang="es" data-lang="es" data-titulo-es="ConCiencia: explora, deja tu huella" data-titulo-en="ConCiencia: explore, leave your trace">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ConCiencia: ciencia ciudadana en Ecuador</title>
-<meta name="description" content="Responde encuestas sobre los Objetivos de Desarrollo Sostenible, descubre cómo piensa tu comunidad y ayuda a construir datos abiertos para Ecuador.">
+<title>ConCiencia: explora, deja tu huella</title>
+<meta name="description" content="ConCiencia: ciencia ciudadana. Participa, descubre qué preocupa a tu comunidad y ayuda a construir datos abiertos.">
 <link rel="icon" href="img/favicon.png">
-<script>
-  // Compatibilidad: los enlaces antiguos (?e=...&t=...) llevan a la aplicación de encuestas
-  if (/[?&]e=/.test(location.search)) location.replace("encuestas/" + location.search);
-</script>
+<script>if (/[?&]e=/.test(location.search)) location.replace("encuestas/" + location.search);</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#FFFFFF;--ink:#2E2650;--muted:#6B6585;--line:#ECE8F6;--lav:#B7A6EE;--lav-soft:#F4F1FD;--tang:#EE8445;--tang-soft:#FDEBDD;--focus:#5B45C9;
-  color-scheme:light;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
-*,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth;scroll-padding-top:5rem}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:1.0625rem;line-height:1.6}
-img{max-width:100%;display:block}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:8px}
-h1,h2,h3,.display{font-family:"Bricolage Grotesque","Atkinson Hyperlegible",system-ui,sans-serif;letter-spacing:-.015em;line-height:1.1}
-html[data-lang="es"] [lang="en"],html[data-lang="en"] [lang="es"]{display:none !important}
-.wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
-.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:#fff;padding:.5rem 1rem;z-index:20}
-.skip:focus{left:1rem}
-
-/* Cabecera */
-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--bg)}
-.head{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:4.25rem}
-.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
-.logo img{height:1.9rem;width:auto}
-.logo span{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.2rem}
-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:1.4rem}
-nav a{text-decoration:none;font-weight:700;font-size:.95rem}
-nav a:hover{color:var(--tang)}
-.tools{display:flex;align-items:center;gap:.6rem}
-.lang{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
-.lang button{border:0;background:none;font:inherit;font-size:.85rem;font-weight:700;padding:.35rem .7rem;cursor:pointer;color:var(--muted)}
-.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
-.menu-btn{display:none;border:1.5px solid var(--line);background:none;border-radius:999px;padding:.4rem .8rem;font:inherit;font-weight:700;cursor:pointer}
-@media (max-width:860px){
-  .menu-btn{display:inline-block}
-  nav{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);display:none}
-  nav.open{display:block}
-  nav ul{flex-direction:column;gap:0;padding:.5rem 1.25rem 1rem}
-  nav li a{display:block;padding:.65rem 0}
-}
-
-/* Héroe */
-.hero{padding:3.5rem 0 3rem}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center}
-@media (max-width:860px){.hero-grid{grid-template-columns:1fr}}
-.kicker{font-weight:700;color:var(--tang);margin:0 0 .75rem}
-.hero h1{font-size:clamp(2.4rem,6.5vw,4.2rem);font-weight:800;margin:0 0 1.1rem;text-wrap:balance}
-.hero p.lead{font-size:1.2rem;color:var(--muted);max-width:34rem;margin:0 0 1.75rem}
-.ctas{display:flex;flex-wrap:wrap;gap:.75rem}
-.btn{display:inline-block;font-weight:700;border-radius:999px;padding:.85rem 1.5rem;border:2px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none}
-.btn.ghost{background:transparent;color:var(--ink)}
-.hero-art{position:relative;min-height:20rem}
-.hero-art .astro{width:62%;margin-left:auto}
-.hero-art .card{position:absolute;left:0;bottom:0;width:min(17rem,70%);background:var(--bg);border:1.5px solid var(--line);border-radius:1.25rem;padding:1rem;box-shadow:0 18px 40px -24px rgba(46,38,80,.35)}
-.card img{width:4rem;height:4rem;object-fit:contain;margin-bottom:.4rem}
-.card p{margin:0;font-weight:700;line-height:1.35}
-.card strong{color:var(--tang)}
-.card small{display:block;color:var(--muted);font-weight:400;margin-top:.4rem}
-
-/* Secciones */
-section{padding:4rem 0}
-section.alt{background:var(--lav-soft)}
-.sec-head{max-width:40rem;margin-bottom:2rem}
-.sec-head h2{font-size:clamp(1.9rem,4.5vw,2.7rem);font-weight:800;margin:0 0 .6rem}
-.sec-head p{color:var(--muted);margin:0}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;counter-reset:s}
-@media (max-width:760px){.steps{grid-template-columns:1fr}}
-.step{background:var(--bg);border-radius:1.25rem;padding:1.5rem}
-.step::before{counter-increment:s;content:counter(s);display:inline-grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--tang);color:#fff;font-weight:800;font-family:"Bricolage Grotesque",system-ui,sans-serif;margin-bottom:.8rem}
-.step h3{font-size:1.35rem;margin:0 0 .4rem}
-.step p{margin:0;color:var(--muted)}
-
-/* ODS */
-.ods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:.9rem;align-items:start}
-.ods{border:1.5px solid var(--line);border-radius:1.1rem;background:var(--bg);overflow:hidden}
-.ods summary{list-style:none;display:grid;grid-template-columns:3.2rem 1fr;gap:.8rem;align-items:center;padding:.8rem;cursor:pointer}
-.ods summary::-webkit-details-marker{display:none}
-.num{width:3.2rem;height:3.2rem;border-radius:.8rem;display:grid;place-items:center;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:1.35rem;color:#fff}
-.num.dark{color:var(--ink)}
-.ods .name{font-weight:700;line-height:1.25}
-.ods .count{display:block;font-size:.85rem;color:var(--muted);font-weight:400}
-.ods .count.on{color:var(--tang);font-weight:700}
-.ods ul{list-style:none;margin:0;padding:0 .8rem .8rem;display:grid;gap:.5rem}
-.ods li{display:flex;justify-content:space-between;align-items:center;gap:.6rem;border-top:1px solid var(--line);padding-top:.5rem;font-size:.95rem;line-height:1.3}
-.ods li a{flex:none;font-weight:700;font-size:.85rem;background:var(--ink);color:#fff;text-decoration:none;border-radius:999px;padding:.35rem .8rem}
-.ods li em{flex:none;font-style:normal;font-size:.8rem;color:var(--muted)}
-.note{font-size:.9rem;color:var(--muted);margin-top:1.25rem}
-
-/* Proyectos */
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-@media (max-width:860px){.cards{grid-template-columns:1fr}}
-.pcard{border:1.5px solid var(--line);border-radius:1.25rem;padding:1.5rem;background:var(--bg)}
-.pcard h3{font-size:1.3rem;margin:0 0 .5rem}
-.pcard p{margin:0;color:var(--muted)}
-.pcard .tag{display:inline-block;font-size:.8rem;font-weight:700;color:var(--tang);background:var(--tang-soft);border-radius:999px;padding:.15rem .6rem;margin-bottom:.8rem}
-
-/* Datos y nosotros */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
-@media (max-width:860px){.two{grid-template-columns:1fr}}
-.facts{list-style:none;padding:0;margin:0;display:grid;gap:.9rem}
-.facts li{padding-left:1.6rem;position:relative}
-.facts li::before{content:"";position:absolute;left:0;top:.55rem;width:.7rem;height:.7rem;border-radius:50%;background:var(--tang)}
-.alien{width:min(18rem,70%);margin:0 auto}
-.mission{display:grid;gap:1rem;margin-top:1.25rem}
-.mission div{border-left:4px solid var(--lav);padding-left:1rem}
-.mission h3{font-size:1.1rem;margin:0 0 .2rem}
-.mission p{margin:0;color:var(--muted)}
-
-/* Contacto y pie */
-.social{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.25rem}
-.social span{border:1.5px dashed var(--lav);border-radius:999px;padding:.45rem 1rem;font-weight:700;color:var(--muted)}
-footer{border-top:1px solid var(--line);padding:2rem 0 2.5rem;color:var(--muted);font-size:.9rem}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
-@media (max-width:480px){.logo span{display:none}}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-</style>
+<link rel="stylesheet" href="assets/estilo.css">
 </head>
 <body>
 <a class="skip" href="#contenido"><span lang="es">Ir al contenido</span><span lang="en">Skip to content</span></a>
-<header>
-  <div class="wrap head">
-    <a class="logo" href="#inicio"><img src="img/logo.png" alt=""><span>ConCiencia</span></a>
-    <nav id="menu" aria-label="Principal">
-      <ul>
-        <li><a href="#como"><span lang="es">Cómo funciona</span><span lang="en">How it works</span></a></li>
-        <li><a href="#ods"><span lang="es">ODS</span><span lang="en">SDGs</span></a></li>
-        <li><a href="#proyectos"><span lang="es">Proyectos</span><span lang="en">Projects</span></a></li>
-        <li><a href="#datos"><span lang="es">Datos abiertos</span><span lang="en">Open data</span></a></li>
-        <li><a href="#nosotros"><span lang="es">Nosotros</span><span lang="en">About</span></a></li>
-        <li><a href="#contacto"><span lang="es">Contacto</span><span lang="en">Contact</span></a></li>
-      </ul>
-    </nav>
-    <div class="tools">
-      <div class="lang" role="group" aria-label="Idioma / Language">
-        <button type="button" data-l="es" aria-pressed="true">ES</button>
-        <button type="button" data-l="en" aria-pressed="false">EN</button>
-      </div>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span lang="es">Menú</span><span lang="en">Menu</span></button>
-    </div>
-  </div>
-</header>
-
+<header id="cabecera"></header>
 <main id="contenido">
-<section class="hero" id="inicio">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="kicker"><span lang="es">Ciencia ciudadana en Ecuador</span><span lang="en">Citizen science in Ecuador</span></p>
-      <h1><span lang="es">Tu respuesta también es ciencia</span><span lang="en">Your answer is science too</span></h1>
-      <p class="lead"><span lang="es">Responde encuestas sobre los Objetivos de Desarrollo Sostenible, descubre al instante cómo piensa tu comunidad y ayuda a construir datos abiertos para todo el Ecuador.</span><span lang="en">Answer surveys about the Sustainable Development Goals, see instantly how your community thinks, and help build open data for all of Ecuador.</span></p>
-      <div class="ctas">
-        <a class="btn" href="#ods"><span lang="es">Responder una encuesta</span><span lang="en">Answer a survey</span></a>
-        <a class="btn ghost" href="#como"><span lang="es">Cómo funciona</span><span lang="en">How it works</span></a>
-      </div>
-    </div>
-    <div class="hero-art">
-      <img class="astro" src="img/astronauta.webp" alt="" width="528" height="700">
-      <div class="card">
-        <img src="iconos/E3_buena.png" alt="">
-        <p><span lang="es">Como tú, <strong>7 de cada 10</strong> personas de tu parroquia considera buena la calidad de la educación.</span><span lang="en">Like you, <strong>7 out of 10</strong> people in your parish rate local education as good.</span>
-          <small><span lang="es">Así se ven tus resultados</span><span lang="en">This is how your results look</span></small></p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="alt" id="como">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2><span lang="es">Cómo funciona</span><span lang="en">How it works</span></h2>
-      <p><span lang="es">Cinco minutos desde tu celular bastan para sumar tu voz a un mapa vivo del país.</span><span lang="en">Five minutes on your phone is enough to add your voice to a living map of the country.</span></p>
-    </div>
-    <div class="steps">
-      <div class="step"><h3><span lang="es">Responde</span><span lang="en">Answer</span></h3>
-        <p><span lang="es">Encuestas cortas y anónimas sobre temas que importan en tu comunidad.</span><span lang="en">Short, anonymous surveys about issues that matter in your community.</span></p></div>
-      <div class="step"><h3><span lang="es">Descubre</span><span lang="en">Discover</span></h3>
-        <p><span lang="es">Al terminar ves cuántas personas de tu parroquia, tu provincia y Ecuador piensan como tú.</span><span lang="en">When you finish, you see how many people in your parish, your province and Ecuador think like you.</span></p></div>
-      <div class="step"><h3><span lang="es">Compartimos</span><span lang="en">We share</span></h3>
-        <p><span lang="es">Los resultados se ubican en el mapa por parroquia y se publican como datos abiertos, sin datos personales.</span><span lang="en">Results are mapped by parish and published as open data, with no personal information.</span></p></div>
-    </div>
-  </div>
-</section>
-
-<section id="ods">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2><span lang="es">Elige un Objetivo de Desarrollo Sostenible</span><span lang="en">Choose a Sustainable Development Goal</span></h2>
-      <p><span lang="es">Abre un objetivo para ver sus encuestas. Iremos sumando nuevas encuestas con el tiempo.</span><span lang="en">Open a goal to see its surveys. We keep adding new ones over time.</span></p>
-    </div>
-    <div class="ods-grid" id="ods-grid"></div>
-    <p class="note"><span lang="es">Las encuestas están en español.</span><span lang="en">Surveys are currently available in Spanish only.</span></p>
-  </div>
-</section>
-
-<section class="alt" id="proyectos">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2><span lang="es">Proyectos y servicios</span><span lang="en">Projects and services</span></h2>
-      <p><span lang="es">Además de las encuestas, ponemos la ciencia al alcance de colegios, universidades, laboratorios, empresas e instituciones.</span><span lang="en">Beyond surveys, we bring science within reach of schools, universities, labs, companies and institutions.</span></p>
-    </div>
-    <div class="cards">
-      <div class="pcard"><span class="tag"><span lang="es">Hardware abierto</span><span lang="en">Open hardware</span></span>
-        <h3><span lang="es">Instrumentos de laboratorio de bajo costo</span><span lang="en">Low-cost lab instruments</span></h3>
-        <p><span lang="es">Diseñamos y fabricamos con impresión 3D instrumentos a medida para colegios, universidades, laboratorios y empresas.</span><span lang="en">We design and 3D-print custom instruments for schools, universities, labs and companies.</span></p></div>
-      <div class="pcard"><span class="tag"><span lang="es">Consultoría</span><span lang="en">Consulting</span></span>
-        <h3><span lang="es">Apoyo a la investigación</span><span lang="en">Research support</span></h3>
-        <p><span lang="es">Acompañamos a la academia, empresas e instituciones públicas: diseño de encuestas, levantamiento de datos geolocalizados, análisis y visualización.</span><span lang="en">We support academia, companies and public institutions with survey design, geolocated data collection, analysis and visualization.</span></p></div>
-      <div class="pcard"><span class="tag"><span lang="es">Próximamente</span><span lang="en">Coming soon</span></span>
-        <h3><span lang="es">Ciencia ciudadana en territorio</span><span lang="en">Citizen science in the field</span></h3>
-        <p><span lang="es">Mapear con las comunidades, incluidas las campesinas, su territorio: fotos, observaciones y retos para identificar especies, ríos y riachuelos.</span><span lang="en">Mapping the land with communities, including farming communities: photos, observations and challenges to identify species, rivers and streams.</span></p></div>
-    </div>
-    <p style="margin-top:1.75rem"><a class="btn ghost" href="#contacto"><span lang="es">Cuéntanos tu proyecto</span><span lang="en">Tell us about your project</span></a></p>
-  </div>
-</section>
-
-<section id="datos">
-  <div class="wrap two">
-    <div>
-      <div class="sec-head" style="margin-bottom:1.25rem">
-        <h2><span lang="es">Datos abiertos y privacidad</span><span lang="en">Open data and privacy</span></h2>
-      </div>
-      <ul class="facts">
-        <li><span lang="es">Las encuestas son anónimas y empiezan con tu consentimiento explícito.</span><span lang="en">Surveys are anonymous and start with your explicit consent.</span></li>
-        <li><span lang="es">Tu ubicación solo sirve para situar tu respuesta en tu parroquia, nunca en tu dirección exacta.</span><span lang="en">Your location is only used to place your answer in your parish, never at your exact address.</span></li>
-        <li><span lang="es">Solo mostramos resultados de lugares con al menos 5 respuestas, para que nadie pueda ser identificado.</span><span lang="en">We only show results for places with at least 5 answers, so no one can be identified.</span></li>
-        <li><span lang="es">Los resultados agregados se publican con licencia abierta CC BY 4.0.</span><span lang="en">Aggregated results are published under an open CC BY 4.0 license.</span></li>
-        <li><span lang="es">Próximamente: un mapa interactivo para seguir la evolución de los datos en el tiempo.</span><span lang="en">Coming soon: an interactive map to follow how the data changes over time.</span></li>
-      </ul>
-    </div>
-    <img class="alien" src="img/alien.webp" alt="" width="569" height="700" loading="lazy">
-  </div>
-</section>
-
-<section class="alt" id="nosotros">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2><span lang="es">Quiénes somos</span><span lang="en">About us</span></h2>
-      <p><span lang="es">ConCiencia es una comunidad de ciencia ciudadana y ciencia abierta nacida en Ecuador. Unimos encuestas, datos geolocalizados e instrumentos de bajo costo para que cualquier persona pueda entender y mejorar su entorno.</span><span lang="en">ConCiencia is a citizen science and open science community born in Ecuador. We combine surveys, geolocated data and low-cost instruments so anyone can understand and improve their surroundings.</span></p>
-    </div>
-    <div class="mission">
-      <div><h3><span lang="es">Hoy</span><span lang="en">Today</span></h3>
-        <p><span lang="es">Mapear los problemas y las necesidades no satisfechas de las comunidades del Ecuador.</span><span lang="en">Mapping the unmet problems and needs of communities across Ecuador.</span></p></div>
-      <div><h3><span lang="es">Mañana</span><span lang="en">Tomorrow</span></h3>
-        <p><span lang="es">Llegar a cualquier persona que enfrente los mismos desafíos, en Latinoamérica y el mundo.</span><span lang="en">Reaching anyone facing the same challenges, in Latin America and beyond.</span></p></div>
-      <div><h3><span lang="es">Cómo lo hacemos</span><span lang="en">How we work</span></h3>
-        <p><span lang="es">Con ciencia abierta, inclusión de todas las comunidades y tecnología ligera, de bajo impacto ambiental.</span><span lang="en">With open science, inclusion of every community and lightweight, low-impact technology.</span></p></div>
-    </div>
-  </div>
-</section>
-
-<section id="contacto">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2><span lang="es">Contacto</span><span lang="en">Contact</span></h2>
-      <p><span lang="es">Muy pronto podrás encontrarnos en nuestras redes sociales.</span><span lang="en">You'll soon be able to find us on social media.</span></p>
-    </div>
-    <div class="social" aria-label="Redes sociales (próximamente)"><span>Facebook</span><span>Instagram</span><span>WhatsApp</span><span>TikTok</span></div>
-  </div>
+<section class="hero">
+  <picture>
+    <source media="(max-width: 960px)" srcset="img/portada-960.webp">
+    <img src="img/portada-1920.webp" alt="" fetchpriority="high">
+  </picture>
+  <div class="wrap"><div class="hero-text">
+    <h1><span lang="es">Explora, deja tu huella</span><span lang="en">Explore, leave your trace</span></h1>
+    <img class="lema" lang="es" src="img/lema-es.webp" alt="Cifras claras. Cero cuentos. Con Ciencia." width="900" height="571">
+    <img class="lema" lang="en" src="img/lema-en.webp" alt="Open Data. Engaged Art. Citizen Science." width="900" height="561">
+    <p><span lang="es">Conectamos a personas apasionadas por el conocimiento con proyectos que generan un impacto real. Cualquier persona puede contribuir y beneficiarse del progreso científico: haz clic aquí y deja tu huella.</span><span lang="en">Connecting people passionate about knowledge with projects that create real impact. Anyone can contribute and benefit from scientific progress: just click here and leave your mark.</span></p>
+    <a class="start" href="como-funciona.html"><span lang="es">Empieza aquí</span><span lang="en">Start here</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+  </div></div>
 </section>
 </main>
-
-<footer>
-  <div class="wrap">
-    <span>© 2026 ConCiencia</span>
-    <span><span lang="es">Resultados publicados como datos abiertos (CC BY 4.0)</span><span lang="en">Results published as open data (CC BY 4.0)</span></span>
-  </div>
-</footer>
-
-<script>
-const ODS = [{"n": 1, "color": "#E5243B", "dark": false, "es": "Fin de la pobreza", "en": "No poverty", "encuestas": [{"es": "Oportunidades económicas para comunidades marginadas", "en": "Economic opportunities for marginalized communities", "code": null}, {"es": "Políticas para reducir la brecha de ingresos", "en": "Policies to reduce the income gap", "code": null}]}, {"n": 2, "color": "#DDA63A", "dark": true, "es": "Hambre cero", "en": "Zero hunger", "encuestas": [{"es": "Acceso equitativo a recursos y tecnologías agrícolas", "en": "Equitable access to agricultural resources and technologies", "code": "RT"}, {"es": "Diversificación de cultivos para la seguridad alimentaria", "en": "Crop diversification for food security", "code": "DC"}, {"es": "Prácticas agrícolas sostenibles y conservación del suelo", "en": "Sustainable farming and soil conservation", "code": "PS"}]}, {"n": 3, "color": "#4C9F38", "dark": false, "es": "Salud y bienestar", "en": "Good health and well-being", "encuestas": [{"es": "Acceso a atención médica en áreas rurales", "en": "Access to healthcare in rural areas", "code": null}, {"es": "Educación en salud y conciencia comunitaria", "en": "Health education and community awareness", "code": null}, {"es": "Prevención y control de enfermedades", "en": "Disease prevention and control", "code": null}]}, {"n": 4, "color": "#C5192D", "dark": false, "es": "Educación de calidad", "en": "Quality education", "encuestas": [{"es": "Calidad de la educación", "en": "Quality of education", "code": "CE"}, {"es": "Acceso equitativo a educación", "en": "Equitable access to education", "code": "AE"}, {"es": "Oportunidades de aprendizaje", "en": "Learning opportunities", "code": "OA"}]}, {"n": 5, "color": "#FF3A21", "dark": false, "es": "Igualdad de género", "en": "Gender equality", "encuestas": []}, {"n": 6, "color": "#26BDE2", "dark": false, "es": "Agua limpia y saneamiento", "en": "Clean water and sanitation", "encuestas": [{"es": "Adaptación al cambio climático y disponibilidad de agua", "en": "Climate adaptation and water availability", "code": null}, {"es": "Infraestructuras para el acceso al agua potable", "en": "Infrastructure for drinking water access", "code": null}, {"es": "Monitoreo y reducción de la contaminación del agua", "en": "Monitoring and reducing water pollution", "code": null}]}, {"n": 7, "color": "#FCC30B", "dark": true, "es": "Energía asequible y no contaminante", "en": "Affordable and clean energy", "encuestas": [{"es": "Reducción de emisiones de gases de efecto invernadero", "en": "Reducing greenhouse gas emissions", "code": null}]}, {"n": 8, "color": "#A21942", "dark": false, "es": "Trabajo decente y crecimiento económico", "en": "Decent work and economic growth", "encuestas": []}, {"n": 9, "color": "#FD6925", "dark": false, "es": "Industria, innovación e infraestructura", "en": "Industry, innovation and infrastructure", "encuestas": [{"es": "Planificación y prácticas de construcción resilientes", "en": "Resilient planning and building practices", "code": null}]}, {"n": 10, "color": "#DD1367", "dark": false, "es": "Reducción de las desigualdades", "en": "Reduced inequalities", "encuestas": [{"es": "Inclusión de comunidades indígenas en la toma de decisiones", "en": "Inclusion of Indigenous communities in decision-making", "code": null}, {"es": "Reconocimiento y respeto de la diversidad cultural", "en": "Recognition and respect for cultural diversity", "code": null}, {"es": "Preservación y promoción de lenguas indígenas", "en": "Preserving and promoting Indigenous languages", "code": null}]}, {"n": 11, "color": "#FD9D24", "dark": true, "es": "Ciudades y comunidades sostenibles", "en": "Sustainable cities and communities", "encuestas": [{"es": "Áreas verdes accesibles para comunidades urbanas", "en": "Accessible green areas for urban communities", "code": null}, {"es": "Planificación urbana para promover espacios verdes", "en": "Urban planning for green spaces", "code": null}, {"es": "Educación y simulacros ante desastres", "en": "Disaster preparedness education and drills", "code": null}]}, {"n": 12, "color": "#BF8B2E", "dark": false, "es": "Producción y consumo responsables", "en": "Responsible consumption and production", "encuestas": []}, {"n": 13, "color": "#3F7E44", "dark": false, "es": "Acción por el clima", "en": "Climate action", "encuestas": [{"es": "Adaptación a eventos climáticos extremos", "en": "Adapting to extreme weather events", "code": null}, {"es": "Pérdida de glaciares y recursos hídricos", "en": "Glacier loss and water resources", "code": null}, {"es": "Sistemas de alerta temprana y respuesta", "en": "Early warning and response systems", "code": null}]}, {"n": 14, "color": "#0A97D9", "dark": false, "es": "Vida submarina", "en": "Life below water", "encuestas": [{"es": "Protección de hábitats críticos", "en": "Protecting critical habitats", "code": null}]}, {"n": 15, "color": "#56C02B", "dark": false, "es": "Vida de ecosistemas terrestres", "en": "Life on land", "encuestas": [{"es": "Gestión sostenible de especies en peligro", "en": "Sustainable management of endangered species", "code": null}, {"es": "Participación comunitaria en la conservación", "en": "Community participation in conservation", "code": null}]}, {"n": 16, "color": "#00689D", "dark": false, "es": "Paz, justicia e instituciones sólidas", "en": "Peace, justice and strong institutions", "encuestas": [{"es": "Causas subyacentes del crimen", "en": "Root causes of crime", "code": null}, {"es": "Aplicación de la ley y prevención del crimen", "en": "Law enforcement and crime prevention", "code": null}, {"es": "Participación comunitaria en seguridad", "en": "Community participation in safety", "code": null}]}, {"n": 17, "color": "#19486A", "dark": false, "es": "Alianzas para lograr los objetivos", "en": "Partnerships for the goals", "encuestas": [{"es": "Monitoreo y reducción de la contaminación del aire", "en": "Monitoring and reducing air pollution", "code": null}]}];
-const grid = document.getElementById("ods-grid");
-const esc = s => s.replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
-const L = (es, en) => `<span lang="es">${esc(es)}</span><span lang="en">${esc(en)}</span>`;
-ODS.forEach(o => {
-  const abiertas = o.encuestas.filter(e => e.code).length;
-  const total = o.encuestas.length;
-  const count = !total ? L("Próximamente", "Coming soon")
-    : abiertas ? L(`${abiertas} encuesta${abiertas > 1 ? "s" : ""} disponible${abiertas > 1 ? "s" : ""}`, `${abiertas} survey${abiertas > 1 ? "s" : ""} available`)
-    : L(`${total} encuesta${total > 1 ? "s" : ""} en preparación`, `${total} survey${total > 1 ? "s" : ""} in preparation`);
-  const items = o.encuestas.map(e => `<li>${L(e.es, e.en)}${e.code
-      ? `<a href="encuestas/?e=${e.code}">${L("Responder", "Answer")}</a>` : `<em>${L("Pronto", "Soon")}</em>`}</li>`).join("");
-  const d = document.createElement("details");
-  d.className = "ods";
-  d.innerHTML = `<summary><span class="num${o.dark ? " dark" : ""}" style="background:${o.color}">${o.n}</span>
-    <span class="name">${L(o.es, o.en)}<span class="count${abiertas ? " on" : ""}">${count}</span></span></summary>
-    ${total ? `<ul>${items}</ul>` : `<ul><li>${L("Estamos preparando encuestas para este objetivo.", "We are preparing surveys for this goal.")}</li></ul>`}`;
-  grid.appendChild(d);
-});
-
-// Idioma
-const html = document.documentElement;
-function setLang(l) {
-  html.dataset.lang = l; html.lang = l;
-  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === l)));
-  document.title = l === "es" ? "ConCiencia: ciencia ciudadana en Ecuador" : "ConCiencia: citizen science in Ecuador";
-  try { localStorage.setItem("conciencia-lang", l); } catch (e) {}
-}
-let saved = null;
-try { saved = localStorage.getItem("conciencia-lang"); } catch (e) {}
-setLang(saved || ((navigator.language || "es").startsWith("es") ? "es" : "en"));
-document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.l)));
-
-// Menú móvil
-const menu = document.getElementById("menu"), mb = document.querySelector(".menu-btn");
-mb.addEventListener("click", () => { const o = menu.classList.toggle("open"); mb.setAttribute("aria-expanded", String(o)); });
-menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { menu.classList.remove("open"); mb.setAttribute("aria-expanded", "false"); }));
-</script>
+<div id="pie"></div>
+<script src="assets/comun.js"></script>
 </body>
 </html>
