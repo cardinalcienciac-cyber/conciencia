@@ -41,7 +41,7 @@
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">${L("Menú", "Menu")}</button>
       </div></div>`;
   document.getElementById("pie").outerHTML = `<footer class="site-foot"><div class="wrap">
-      <span>© 2026 ConCiencia</span><span>${L("Resultados publicados como datos abiertos (CC BY 4.0)", "Results published as open data (CC BY 4.0)")}</span></div></footer>`;
+      <span>© 2026 ConCiencia. ${L("Todos los derechos reservados.", "All rights reserved.")}</span><span>${L("Datos abiertos: CC BY 4.0", "Open data: CC BY 4.0")} · <a href="licencia.html">${L("Aviso legal", "Legal notice")}</a></span></div></footer>`;
 
   // Submenús: clic en la flecha, y en escritorio también al pasar el ratón
   const fino = matchMedia("(hover: hover) and (min-width: 901px)");
