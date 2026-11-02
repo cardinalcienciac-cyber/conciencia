@@ -40,7 +40,11 @@
         </div>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">${L("Menú", "Menu")}</button>
       </div></div>`;
+  const REDES = [["Instagram", "https://www.instagram.com/conci_encia7/"], ["TikTok", "https://www.tiktok.com/@cienciaccardinal"],
+                 ["Facebook", "https://www.facebook.com/profile.php?id=61595861712975"]];
+  const redes = REDES.map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}</a>`).join("");
   document.getElementById("pie").outerHTML = `<footer class="site-foot"><div class="wrap">
+      <nav class="foot-redes" aria-label="${"Redes sociales"}">${redes}</nav>
       <span>© 2026 ConCiencia. ${L("Todos los derechos reservados.", "All rights reserved.")}</span><span>${L("Datos abiertos: CC BY 4.0", "Open data: CC BY 4.0")} · <a href="licencia.html">${L("Aviso legal", "Legal notice")}</a></span></div></footer>`;
 
   // Submenús: clic en la flecha, y en escritorio también al pasar el ratón

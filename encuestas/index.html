@@ -4,7 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ConCiencia</title>
-<meta name="description" content="ConCiencia: ciencia ciudadana en Ecuador. Responde encuestas y descubre cómo piensa tu comunidad.">
+<meta name="description" content="ConCiencia: ciencia ciudadana. Responde encuestas y descubre cómo piensa tu comunidad.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ConCiencia">
+<meta property="og:title" content="Participa en ConCiencia y descubre qué piensa tu comunidad">
+<meta property="og:description" content="Responde una encuesta corta y anónima y mira al instante cuántas personas piensan como tú.">
+<meta property="og:image" content="https://cardinalcienciac-cyber.github.io/conciencia/img/compartir.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_EC">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +72,11 @@ main{flex:1;overflow-y:auto;display:flex}
 .note{font-size:.82rem;color:var(--muted);margin:.4rem 0 0}
 .idea blockquote{margin:0 auto;font-size:1.2rem;font-style:italic;max-width:26rem}
 .idea .sub{color:var(--muted);margin:.9rem auto 0;max-width:26rem}
+.share{margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--line);max-width:26rem}
+.share p{margin:0 0 .8rem;font-weight:700}
+.share-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem}
+.share .btn{font-size:1rem;padding:.7rem 1.3rem}
+.share .btn.tang{background:var(--tang);border-color:var(--tang)}
 .privacy{font-size:.8rem;color:var(--muted);margin:2rem auto 0;max-width:26rem}
 .list{list-style:none;padding:0;margin:1.5rem auto 0;display:grid;gap:.75rem;text-align:left;max-width:28rem}
 .list a{display:block;padding:1rem 1.1rem;border:1.5px solid var(--line);border-radius:1rem;text-decoration:none}
@@ -237,7 +251,9 @@ function render(animate) {
       <p class="privacy">Tus respuestas se ubican en el mapa de tu parroquia, nunca en tu dirección exacta. Los resultados se publican como datos abiertos (CC BY 4.0).</p>
       <p style="margin-top:1.5rem"><a class="btn ghost" href="../#ods">Responder otra encuesta</a></p></div>`;
   }
+  if (datos && current > 0 && current === slidesCache.length - 1) h = h.replace(/<\/div>\s*$/, compartirHTML() + "</div>");
   main.innerHTML = h;
+  activarCompartir();
   if (animate && main.firstElementChild) main.firstElementChild.classList.add("enter");
   main.scrollTop = 0;
   const total = slidesCache.length;
@@ -252,6 +268,36 @@ function render(animate) {
   const go = document.getElementById("go"); if (go) go.addEventListener("click", () => { if (datos) goTo(1); else if (terminado) main.innerHTML = `<div class="slide"><p class="lead">Tus resultados aún no están listos. Guarda este enlace y vuelve a abrirlo en unos minutos.</p></div>`; else { esperando = true; render(false); } });
   const ot = document.getElementById("others"); if (ot) ot.addEventListener("click", () => { showOthers = !showOthers; render(false); document.getElementById("others").focus(); });
 }
+// ---------- Compartir resultados ----------
+function textoCompartir() {
+  const s = slidesCache.find(x => x.kind === "one");
+  const base = `Respondí la encuesta «${enc.titulo}» de ConCiencia`;
+  if (scope && s) {
+    const x = outOf10(porcentajes(s.p)[s.sel[0]]);
+    const f = frase(s.p, s.sel).replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+    return `${base}: como yo, ${x} de cada 10 personas de ${lugar(scope)} ${f}. ¡Participa tú también!`;
+  }
+  return `${base} y descubrí qué piensa mi comunidad. ¡Participa tú también!`;
+}
+const urlEncuesta = () => location.origin + location.pathname + "?e=" + codigo;
+function compartirHTML() {
+  const txt = encodeURIComponent(textoCompartir() + " " + urlEncuesta());
+  const nativo = navigator.share ? `<button class="btn tang" type="button" id="compartir">Compartir</button>` : "";
+  return `<div class="share"><p>Comparte tus resultados e invita a otras personas</p><div class="share-btns">${nativo}
+    <a class="btn ghost" href="https://wa.me/?text=${txt}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn ghost" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(urlEncuesta())}" target="_blank" rel="noopener">Facebook</a>
+    <button class="btn ghost" type="button" id="copiar">Copiar enlace</button></div></div>`;
+}
+function activarCompartir() {
+  const b = document.getElementById("compartir");
+  if (b) b.addEventListener("click", () => navigator.share({title: "ConCiencia", text: textoCompartir(), url: urlEncuesta()}).catch(() => {}));
+  const c = document.getElementById("copiar");
+  if (c) c.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(textoCompartir() + " " + urlEncuesta()); c.textContent = "¡Copiado!"; }
+    catch (e) { c.textContent = "No se pudo copiar"; }
+  });
+}
+
 function goTo(i) { if (!datos || i < 0 || i >= slidesCache.length) return; current = i; showOthers = false; render(true); }
 
 function resultados() {

@@ -118,6 +118,17 @@ a.card:hover{border-color:var(--lav);transform:translateY(-2px)}
 .social{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.25rem}
 .social span{border:1.5px dashed var(--lav);border-radius:999px;padding:.5rem 1.1rem;font-weight:700;color:var(--muted)}
 
+/* Redes sociales */
+.redes{display:grid;grid-template-columns:repeat(auto-fill,minmax(13rem,1fr));gap:.9rem;max-width:44rem}
+.red{display:block;border:1.5px solid var(--line);border-radius:1.1rem;padding:1rem 1.2rem;text-decoration:none;transition:border-color .2s}
+a.red:hover{border-color:var(--tang)}
+.red strong{display:block;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:1.2rem}
+.red span{color:var(--muted);font-size:.95rem}
+.red.pronto{border-style:dashed}
+.foot-redes{display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+.foot-redes a{font-weight:700;text-decoration:none}
+.foot-redes a:hover{color:var(--tang)}
+
 /* Portada */
 .hero{position:relative;min-height:calc(100svh - var(--head));display:flex;align-items:center;color:#fff;overflow:hidden;background:#0b1630}
 .hero picture{position:absolute;inset:0;z-index:0}
