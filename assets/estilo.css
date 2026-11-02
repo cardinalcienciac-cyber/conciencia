@@ -39,6 +39,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .lang{display:flex;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
 .lang button{border:0;background:none;font:inherit;font-size:.85rem;font-weight:700;padding:.35rem .7rem;cursor:pointer;color:var(--muted)}
 .lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.install-btn{border:0;background:var(--tang);color:#fff;border-radius:999px;padding:.4rem .9rem;font:inherit;font-weight:700;font-size:.85rem;cursor:pointer}
+.install-btn[hidden]{display:none}
 .menu-btn{display:none;border:1.5px solid var(--line);background:none;border-radius:999px;padding:.4rem .8rem;font:inherit;font-weight:700;cursor:pointer}
 @media (max-width:900px){
   .menu-btn{display:inline-block}

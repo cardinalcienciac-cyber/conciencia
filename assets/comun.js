@@ -38,6 +38,7 @@
         <div class="lang" role="group" aria-label="Idioma / Language">
           <button type="button" data-l="es" aria-pressed="true">ES</button><button type="button" data-l="en" aria-pressed="false">EN</button>
         </div>
+        <button class="install-btn" type="button" hidden>${L("Instalar app", "Install app")}</button>
         <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">${L("Menú", "Menu")}</button>
       </div></div>`;
   const REDES = [["Instagram", "https://www.instagram.com/conci_encia7/"], ["TikTok", "https://www.tiktok.com/@cienciaccardinal"],
@@ -62,6 +63,16 @@
   });
   const nav = document.getElementById("site-nav"), mb = head.querySelector(".menu-btn");
   mb.addEventListener("click", () => { const o = nav.classList.toggle("open"); mb.setAttribute("aria-expanded", String(o)); });
+
+  // App instalable (PWA): registro del trabajador de servicio y botón "Instalar app"
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+  }
+  let aviso = null;
+  const ib = head.querySelector(".install-btn");
+  window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); aviso = e; ib.hidden = false; });
+  ib.addEventListener("click", async () => { if (!aviso) return; aviso.prompt(); await aviso.userChoice; aviso = null; ib.hidden = true; });
+  window.addEventListener("appinstalled", () => { ib.hidden = true; });
 
   // Idioma
   const html = document.documentElement;

@@ -1,0 +1,20 @@
+{
+  "name": "ConCiencia: ciencia ciudadana",
+  "short_name": "ConCiencia",
+  "description": "Participa, descubre qué piensa tu comunidad y ayuda a construir datos abiertos.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
+  "categories": ["education", "lifestyle"],
+  "icons": [
+    {"src": "img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "img/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Encuestas", "short_name": "Encuestas", "url": "ods.html", "icons": [{"src": "img/icon-192.png", "sizes": "192x192"}]}
+  ]
+}

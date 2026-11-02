@@ -15,6 +15,9 @@
 <meta property="og:locale" content="es_EC">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../img/favicon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="apple-touch-icon" href="../img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
@@ -316,6 +319,7 @@ function resultados() {
   });
 }
 
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("../sw.js", {scope: "../"}).catch(() => {});
 if (!enc) portal(); else if (!token) lanzar(); else resultados();
 </script>
 </body>
